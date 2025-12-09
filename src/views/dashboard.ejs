@@ -1,0 +1,190 @@
+<!-- <% include("./header.ejs") %> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMS</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
+</head>
+<body>
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #2c3e50;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    background-color: #3498db;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .logout {
+    background-color: #e74c3c;
+    margin-left: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  th, td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background-color: #3498db;
+    color: white;
+    font-size: 18px;
+  }
+
+  td {
+    font-size: 16px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .actions a {
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .actions a.edit {
+    background-color: #2ecc71;
+  }
+
+  .actions a.delete {
+    background-color: #e74c3c;
+  }
+
+  .message {
+    color: #e74c3c;
+    font-size: 16px;
+  }
+
+</style>
+
+<div class="dashboard-header">
+  <h1>Student Dashboard</h1>
+  <a href="/new-user">Add New User</a>
+  <a href="#" class="logout" onclick="confirmLogout()">Logout</a>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>DOB</th>
+    <th>Class</th>
+    <th>Roll No</th>
+    <th>Phone No</th>
+    <th>Actions</th>
+  </tr>
+
+  <% if (student.length > 0) { %>
+    <% for (let i = 0; i < student.length; i++) { %>
+      <tr>
+        <td><%= student[i].name %></td>
+        <td><%= student[i].dob.toISOString().slice(0, 10) %></td>
+        <td><%= student[i].class %></td>
+        <td><%= student[i].rollNo %></td>
+        <td><%= student[i].phone %></td>
+        <td class="actions">
+          <a href="/edit-student?id=<%= student[i]._id %>" class="edit">Edit</a>
+          <a href="#" class="delete" onclick="confirmDelete('<%= student[i]._id %>')">Delete</a>
+        </td>
+      </tr>
+    <% } %>
+  <% } else { %>
+    <tr>
+      <td colspan="6" class="message">No students found.</td>
+    </tr>
+  <% } %>
+</table>
+
+<br>
+
+<% if (typeof message !== 'undefined') { %>
+  <script>
+    alert('<%= message %>');
+  </script>
+<% } %>
+<script>
+  function confirmLogout() {
+    console.log("111111111111111111111111111111")
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "Do you really want to logout?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Yes, logout!',
+          cancelButtonText: 'No, cancel!',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Redirect to logout route
+              window.location.href = '/logout';
+          } else {
+              Swal.fire(
+                  'Cancelled',
+                  'You are still logged in :)',
+                  'error'
+              );
+          }
+      });
+  }
+</script>
+
+
+<script>
+  function confirmDelete(studentId) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "This will permanently delete the student.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Redirect to the delete URL
+              window.location.href = '/delete-student?id=' + studentId;
+          }
+      });
+  }
+</script>
+
+</body>
+
+<% include("./footer.ejs") %>

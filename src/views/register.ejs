@@ -1,0 +1,102 @@
+<%- include('./header.ejs') %>
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1b5c5a;
+    text-align: center;
+  }
+
+  .registration-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #1b5c5a;
+    color: white;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #164946;
+  }
+
+  .error-message, .success-message {
+    color: red;
+    margin-top: 10px;
+    display: none; /* Keep it hidden by default */
+  }
+
+  .success-message {
+    color: #1b5c5a;
+  }
+</style>
+
+<div class="registration-container">
+  <h1>User Registration Form</h1>
+
+  <form action="/register" method="post" onsubmit="return validatePassword()">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Enter Name" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Enter Email" required>
+    </div>
+
+    <div class="form-group">
+      <input type="password" id="password" name="password" placeholder="Enter password" required>
+      <p id="error-message" class="error-message">Password must contain at least 8 characters, including uppercase, lowercase, number, and special character.</p>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" value="Register">
+    </div>
+  </form>
+
+  <% if (typeof message !== 'undefined') { %>
+    <p class="success-message"><%= message %></p>
+  <% } %>
+
+</div>
+
+<script>
+  function validatePassword() {
+    const password = document.getElementById("password").value;
+    const errorMessage = document.getElementById("error-message");
+
+    // Regular expression for strong password
+    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!strongPasswordPattern.test(password)) {
+      errorMessage.style.display = "block";  // Show error if invalid
+      return false;  // Prevent form submission
+    }
+
+    errorMessage.style.display = "none";   // Hide error if valid
+    return true;  // Allow form submission
+  }
+</script>
+
+<%- include('./footer.ejs') %>

@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const adminController_1 = __importDefault(require("../controller/adminController"));
+const adminAuth_1 = require("../middileware/adminAuth");
+const router = express_1.default.Router();
+const adminController = new adminController_1.default();
+router.get('/register', adminAuth_1.isLogout, adminController.loadRegister);
+router.post('/register', adminAuth_1.isLogout, adminController.insertStudent);
+router.get('/', adminAuth_1.isLogout, adminController.loginLoad);
+router.get('/login', adminAuth_1.isLogout, adminController.loginLoad);
+router.post('/login', adminAuth_1.isLogout, adminController.verifyLogin);
+router.get('/dashboard', adminAuth_1.isLogin, adminController.loadDashboard);
+router.get('/new-user', adminAuth_1.isLogin, adminController.newUserLoad);
+router.post('/new-user', adminAuth_1.isLogin, adminController.addUser);
+router.get('/edit-student', adminAuth_1.isLogin, adminController.editStudent);
+router.post('/edit-student', adminAuth_1.isLogin, adminController.updateStudent);
+router.get('/delete-student', adminAuth_1.isLogin, adminController.deleteStudent);
+router.get('/logout', adminAuth_1.isLogin, adminController.logOut);
+exports.default = router;

@@ -1,0 +1,66 @@
+<% include('./header.ejs') %>
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e6e6e6;
+    text-align: center;
+    margin: 0;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  h4 {
+    color: red;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+
+  input {
+    width: calc(100% - 22px); /* Adjusted for the border and padding */
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<h1>Login</h1>
+
+<% if(typeof message !== 'undefined'){ %>
+  <h4><%= message %></h4>
+<% } %>
+
+<form action="/login" method="post">
+    <input type="email" name="email" for="email" required placeholder="Enter email">
+    <br>
+    <input type="password" name="password" required placeholder="Enter password">
+    <br>
+    <input type="submit" value="Login">
+</form>
+
+<% include('./footer.ejs') %>
+
+
+
