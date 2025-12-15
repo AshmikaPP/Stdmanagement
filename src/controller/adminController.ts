@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import Admin, { IAdmin } from "../model/schoolModel";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { Session, SessionData } from 'express-session'
 import Student from "../model/studentModel";
 
