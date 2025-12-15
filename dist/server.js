@@ -8,7 +8,7 @@ const schoolRout_1 = __importDefault(require("./routes/schoolRout"));
 const path_1 = __importDefault(require("path"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_session_1 = __importDefault(require("express-session"));
-mongoose_1.default.connect("mongodb://127.0.0.1:27017/student-management");
+mongoose_1.default.connect("mongodb+srv://ashmikapp2002_db_user:PizdOzGkTb1pacUW@cluster0.xp5dmmg.mongodb.net/myDatabase");
 const app = (0, express_1.default)();
 app.use((req, res, next) => {
     res.set('Cache-control', 'no-store,no-cache');

@@ -10,7 +10,9 @@ declare module 'express-session' {
     }
   }
 
-mongoose.connect("mongodb://127.0.0.1:27017/student-management");
+mongoose.connect(
+  "mongodb+srv://ashmikapp2002_db_user:PizdOzGkTb1pacUW@cluster0.xp5dmmg.mongodb.net/myDatabase",
+);
 const app = express();
 
 app.use((req,res,next)=>{
