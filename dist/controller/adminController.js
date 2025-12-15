@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const schoolModel_1 = __importDefault(require("../model/schoolModel"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const studentModel_1 = __importDefault(require("../model/studentModel"));
 // Extend the SessionData interface
 // Extend the Request type to include our custom session
@@ -43,7 +43,7 @@ class AdminController {
                     return res.render('register', { message: "email is already exist" });
                 }
                 const pass = req.body.password;
-                const spassword = yield bcrypt_1.default.hash(pass, 10);
+                const spassword = yield bcryptjs_1.default.hash(pass, 10);
                 const student = new schoolModel_1.default({
                     name: name,
                     email: email,
@@ -90,7 +90,7 @@ class AdminController {
                 const password = req.body.password;
                 const schoolData = yield schoolModel_1.default.findOne({ email: email });
                 if (schoolData) {
-                    const passwordMatch = yield bcrypt_1.default.compare(password, schoolData.password);
+                    const passwordMatch = yield bcryptjs_1.default.compare(password, schoolData.password);
                     if (passwordMatch) {
                         const studentData = yield studentModel_1.default.find();
                         req.session.studentid = schoolData._id;
