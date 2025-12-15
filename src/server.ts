@@ -36,5 +36,5 @@ app.use(session({
 app.use('/', schoolRoute)
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on https://stdmanagement.onrender.com`);
 });
