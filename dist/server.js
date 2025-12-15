@@ -27,5 +27,5 @@ app.use((0, express_session_1.default)({
 }));
 app.use('/', schoolRout_1.default);
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on https://stdmanagement.onrender.com`);
 });
