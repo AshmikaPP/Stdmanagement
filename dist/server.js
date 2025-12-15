@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 });
 const port = 3001;
 app.set('view engine', 'ejs');
-app.set('views', path_1.default.join(__dirname, 'views'));
+app.set('views', path_1.default.join(__dirname, '../views'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, express_session_1.default)({
